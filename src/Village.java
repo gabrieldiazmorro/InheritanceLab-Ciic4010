@@ -288,9 +288,12 @@ public class Village {
 		 */
 		public boolean equals(Object obj) {
 			//Implement here!
+			if(obj instanceof Police) {
 			Police testequals =(Police)obj;
 			return (this.getSalary() == testequals.getSalary() && this.getInches() == testequals.getInches() && 
 					this.getWeight() == testequals.getWeight() && this.getName() == testequals.getName());
+			}
+			return false;
 		}
 	}
 	/*
