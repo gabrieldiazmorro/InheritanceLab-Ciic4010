@@ -46,6 +46,7 @@ public class Village {
 		ret[2] = String.valueOf(players[0].getWeight());
 		ret[3] = String.valueOf(((Chief) players[0]).getYearsInService());
 		return ret;
+		
 	}
 	/*
 	 * Exercise B
@@ -128,7 +129,21 @@ public class Village {
 	 */
 	public String[] countTypesOfPlayers() {
 		//Implement here!
-		return null;//Dummy Return
+		int villagercount =0;
+		int policecount =0;
+		int mayorcount =0;
+		for(int i=0; i< players.length; i++) {
+			if(players[i] instanceof Villager) {
+				villagercount++;
+			}if(players[i] instanceof Police) {
+				policecount++;
+			}if(players[i] instanceof Mayor) {
+				mayorcount++;
+			}
+		 
+		}
+		String[] result = {String.valueOf(villagercount), String.valueOf(policecount),String.valueOf(mayorcount)};
+		return result;
 	}
 	
 	/*
@@ -197,7 +212,8 @@ public class Village {
 		@Override
 		public boolean enterEvent(String event) {
 			//Implement here!
-			return false; //Dummy Return
+			
+			return ("Party".equals(event)); //Dummy Return
 		}
 		/*
 		 * Exercise D
@@ -205,7 +221,7 @@ public class Village {
 		@Override
 		public String greet() {
 			//Implement here!
-			return null; //Dummy Return
+			return "Hello, I am " + super.getName()+ " and I work at " + this.getJob()+"."; //Dummy Return
 		}
 		/* 
 		 * Exercise E
@@ -214,7 +230,12 @@ public class Village {
 		 */
 		public boolean equals(Object obj) {
 			//Implement here!
-			return false; //Dummy Return
+			if(obj instanceof Villager) {
+			Villager testequals =(Villager)obj;
+			return (this.getJob() == testequals.getJob() && this.getInches() == testequals.getInches() && 
+					this.getWeight() == testequals.getWeight() && this.getName() == testequals.getName());
+		}
+			return false;
 		}
 	}
 	/*
@@ -250,7 +271,7 @@ public class Village {
 		@Override
 		public boolean enterEvent(String event) {
 			//Implement here!
-			return false; //Dummy Return
+			return ("Party".equals(event)|| "PDMeeting".equals(event)); //Dummy Return
 		}
 		/*
 		 * Exercise D
@@ -258,7 +279,7 @@ public class Village {
 		@Override
 		public String greet() {
 			//Implement here!
-			return null; //Dummy Return
+			return "I am Police "+ super.getName()+ " at your service."; //Dummy Return
 		}
 		/* 
 		 * Exercise E
@@ -267,7 +288,9 @@ public class Village {
 		 */
 		public boolean equals(Object obj) {
 			//Implement here!
-			return false; //Dummy Return
+			Police testequals =(Police)obj;
+			return (this.getSalary() == testequals.getSalary() && this.getInches() == testequals.getInches() && 
+					this.getWeight() == testequals.getWeight() && this.getName() == testequals.getName());
 		}
 	}
 	/*
@@ -282,7 +305,8 @@ public class Village {
 		 */
 		public Chief(String name, int inches, int weight, int yearsInService) {
 			//Implement here!
-			super(null,0,0,null);//Dummy super
+			super(name,inches,weight,"Chief");//Dummy super
+			this.yearsInService = yearsInService;
 		}
 		public int getYearsInService() {
 			return yearsInService;
@@ -302,20 +326,33 @@ public class Village {
 		 */
 		@Override
 		public int getSalary() {
+			if(this.getYearsInService()>3 && this.getYearsInService()<5) {
+				return (int)(super.getSalary() + super.getSalary()* 0.25);
+			}else if(this.getYearsInService()>=5 && this.getYearsInService()<10) {
+				return (int)(super.getSalary() + super.getSalary()* 0.50);
+			}else if(this.getYearsInService()>=10) {
+				return (int)(super.getSalary() + super.getSalary()* 0.75);
+			}
 			//Implement here!
-			return 0;//Dummy Return
+			return super.getSalary();//Dummy Return
 		}
 		/*
 		 * Exercise C part 2
 		 */
 		//Implement here!
 		/*
+		 
 		 * Exercise D
 		 */
 		@Override
 		public String greet() {
 			//Implement here!
-			return null;//Dummy Return
+			return "I am Chief " + super.getName() + ".";//Dummy Return
+		}
+		@Override
+		public boolean canDisableAlarm() {
+			// TODO Auto-generated method stub
+			return true;
 		}
 		/* 
 		 * Exercise E
@@ -323,8 +360,13 @@ public class Village {
 		 * the parameter's type and the object's variables.
 		 */
 		public boolean equals(Object obj) {
-			//Implement here!
-			return false;//Dummy Return
+			if(obj instanceof Chief) {
+			Chief testequals =(Chief)obj;
+			return (this.getSalary() == testequals.getSalary() && this.getYearsInService() == testequals.getYearsInService()&& 
+					this.getInches() == testequals.getInches() && 
+					this.getWeight() == testequals.getWeight() && this.getName() == testequals.getName());//Dummy Return
+		}
+			return false;
 		}
 	}
 	/*
@@ -354,7 +396,7 @@ public class Village {
 		@Override
 		public boolean enterEvent(String event) {
 			//Implement here!
-			return false;//Dummy Return
+			return ("Party".equals(event)|| "PDMeeting".equals(event)|| "Presidential Reunion".equals(event));//Dummy Return
 		}
 		/*
 		 * Exercise D
@@ -362,7 +404,7 @@ public class Village {
 		@Override
 		public String greet() {
 			//Implement here!
-			return null;//Dummy Return
+			return "Greetings, I am "+ super.getName()+ ", the Mayor of this city.";//Dummy Return
 		}
 		/* 
 		 * Exercise E
@@ -370,8 +412,13 @@ public class Village {
 		 * the parameter's type and the object's variables.
 		 */
 		public boolean equals(Object obj) {
+			if(obj instanceof Mayor) {
+			Mayor testequals =(Mayor)obj;
+			return ((this.getTerm() == testequals.getTerm() && this.getInches() == testequals.getInches() && 
+					this.getWeight() == testequals.getWeight() && this.getName() == testequals.getName()));
+			}
 			//Implement here!
-			return false;//Dummy Return
+			return false;
 		}
 	}
 }
